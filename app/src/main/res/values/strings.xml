@@ -1,0 +1,7 @@
+<resources>
+    <!-- chaine de caractere fr -->
+
+    <string name="TitreAccueil">Liste des Pokémon</string>
+    <string name="TitreDetails">Détails du Pokémon</string>
+    <string name="app_name">Pokemon</string>
+</resources>

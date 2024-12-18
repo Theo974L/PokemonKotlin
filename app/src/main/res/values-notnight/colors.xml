@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- couleurs Light -->
+
+    <color name="primary">@color/violetViolent</color>
+    <color name="onPrimary">@color/white</color>
+    <color name="secondary">@color/lola</color>
+    <color name="onSecondary">@color/black</color>
+    <color name="tertiary">@color/heliotrope</color>
+    <color name="onTertiary">@color/black</color>
+
+    <color name="background">@color/white</color>
+    <color name="onBackground">@color/black</color>
+
+
+
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blueEgg">#03DAC5</color>
+    <color name="white">#FFFFFF</color>
+    <color name="violetViolent">#190851</color>
+    <color name="heliotrope">#BB86FC</color>
+    <color name="grayCod">#121212</color>
+    <color name="lola">#E7DAE5</color>
+    <color name="black">#000000</color>
+
+    <color name="primary"/>
+    <color name="onPrimary"/>
+    <color name="secondary"/>
+    <color name="onSecondary"/>
+    <color name="tertiary"/>
+    <color name="onTertiary"/>
+    <color name="background"/>
+    <color name="onBackground"/>
+
+    <color name="surface"/>
+    <color name="onSurface"/>
+
+    <color name="error"/>
+
+</resources>
