@@ -31,7 +31,7 @@ import com.example.evalkotlin.ui.theme.TertiaryColor
 import com.example.evalkotlin.ui.theme.onBackgroundColor
 import com.example.evalkotlin.ui.theme.onTertiaryColor
 import kotlinx.coroutines.launch
-
+import com.example.evalkotlin.data.repositories.PokemonRepository
 
 /**
  *
@@ -43,6 +43,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun AccueilScreen(navController: NavController) {
     val context = LocalContext.current
+    val pokemonRepository = PokemonRepository(RetrofitInstance.api)
 
     Column(
         modifier = Modifier
@@ -68,39 +69,26 @@ fun AccueilScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         // Liste des Pokémon
-        PokemonListing(navController)
+        PokemonListing(navController,pokemonRepository)
     }
 }
 
 @Composable
-fun PokemonListing(navController: NavController) {
+fun PokemonListing(
+    navController: NavController,
+    pokemonRepository: PokemonRepository
+) {
     val scope = rememberCoroutineScope()
     val pokemonList = remember { mutableStateOf<List<Pokemon>>(emptyList()) }
     val isLoading = remember { mutableStateOf(true) }
 
 
-    // A mettre dans le repo (Si j'ai le temps)
+
 
     LaunchedEffect(Unit) {
         scope.launch {
             try {
-                Log.v("TAG", "Calling API -----------------------------")
-
-                val response = RetrofitInstance.api.listingPokemon()
-
-                if (response.isSuccessful) {
-                    response.body()?.let { body ->
-                        Log.v("TAG", "API Call Success!")
-                        pokemonList.value = body.take(10).map { apiPokemon ->
-                            Pokemon(
-                                pokedex_id = apiPokemon.pokedex_id,
-                                category = apiPokemon.category,
-                                name = apiPokemon.name,
-                                sprites = apiPokemon.sprites
-                            )
-                        }
-                    }
-                }
+                pokemonList.value = pokemonRepository.getPokemonList().getOrDefault(emptyList())
             } catch (error: Exception) {
                 Log.v("TAG", "API Call Error: $error")
                 error.printStackTrace()
@@ -220,7 +208,7 @@ fun PreviewPokemonListing(navController: NavController) {
                 .background(SecondaryColor)
         )
         MaterialTheme {
-            PokemonListing(navController)
+            PokemonListing(navController, PokemonRepository(RetrofitInstance.api))
         }
     }
 

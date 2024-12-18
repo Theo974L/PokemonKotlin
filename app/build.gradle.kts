@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
 }
 
 android {
@@ -81,4 +82,11 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.3.0") // Assurez-vous que la version est la dernière disponible
     implementation("androidx.core:core-ktx:1.15.0")
 
+    // Pour le viewModel
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7") // Retrofit pour les requêtes HTTP
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7") // Retrofit pour les requêtes HTTP
+    implementation("com.google.dagger:hilt-android-gradle-plugin:2.48")
+
 }
+

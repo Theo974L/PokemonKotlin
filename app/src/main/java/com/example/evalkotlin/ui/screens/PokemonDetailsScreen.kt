@@ -36,6 +36,7 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.evalkotlin.R
 import com.example.evalkotlin.data.datasource.RetrofitInstance
+import com.example.evalkotlin.data.repositories.PokemonRepository
 import com.example.evalkotlin.ui.theme.BackgroundColor
 import com.example.evalkotlin.ui.theme.SecondaryColor
 import kotlinx.coroutines.launch
@@ -50,7 +51,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun PokemonDetails(
     navController: NavController,
-    pokedexId: Int
+    pokedexId: Int,
 ) {
     val context = LocalContext.current
 
@@ -84,7 +85,8 @@ fun PokemonDetails(
 
 @Composable
 fun GetPokemon(
-    pokemon: Int
+    pokemon: Int,
+    pokemonRepository: PokemonRepository = PokemonRepository(RetrofitInstance.api)
 ){
     val scope = rememberCoroutineScope()
     val pokemonData = remember { mutableStateOf<PokemonDetails?>(null) }
@@ -97,22 +99,7 @@ fun GetPokemon(
     LaunchedEffect(Unit) {
         scope.launch {
             try {
-                Log.d("TAG", "Calling API to get details of Pokémon with ID: $pokemon")
-                val response = RetrofitInstance.api.getPokemonById(pokemon)
-
-                if (response.isSuccessful) {
-                    response.body()?.let { body ->
-                        pokemonData.value = PokemonDetails(
-                            pokedex_id = body.pokedex_id,
-                            category = body.category,
-                            name = body.name,
-                            sprites = body.sprites,
-                            height = body.height,
-                            weight = body.weight,
-                            talents = body.talents
-                        )
-                    }
-                }
+                pokemonData.value = pokemonRepository.getPokemonById(pokemon).getOrNull()
             } catch (error: Exception) {
                 Log.e("TAG", "API Call Error: $error")
                 error.printStackTrace()
